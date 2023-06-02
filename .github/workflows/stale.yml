@@ -1,0 +1,60 @@
+# This workflow warns and then closes issues and PRs that have had no activity for a specified amount of time.
+#
+# You can adjust the behavior by modifying this file.
+# For more information, see:
+# https://github.com/actions/stale
+name: Mark stale issues and pull requests
+
+on:
+  schedule:
+  - cron: '45 19 * * *'
+
+jobs:
+  stale:
+
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+    - uses: actions/stale@v5
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-issue-message: 'Stale issue message'
+        stale-pr-message: 'Stale pull request message'
+        stale-issue-label: 'no-issue-activity'
+        stale-pr-label: 'no-pr-activity'
+- name: Rainforest QA GitHub Action
+  # You may pin to the exact commit or the version.
+  # uses: rainforestapp/github-action@1a134f3f725a67c9fb069dd926f6c95caf78ec99
+  uses: rainforestapp/github-action@v3.2.3
+  with:
+    # An arbitrary string to associate with the run
+    description: # optional, default is 
+    # Only run tests tied to this Run Group
+    run_group_id: 
+    # Use a specific environment for this run
+    environment_id: # optional, default is 
+    # Use a specific URL for this run
+    custom_url: # optional, default is 
+    # How other currently in-progress runs should be handled. Values are `cancel` to cancel runs in the same environment as your new run and `cancel-all` to cancel all runs
+    conflict: # optional, default is 
+    # The execution method to use for this run
+    execution_method: # optional, default is 
+    # DEPRECATED: Use `execution_method` instead
+    crowd: # optional, default is 
+    # Manually entered release information about the release the run is associated with
+    release: # optional, default is 
+    # If set to a value > 0 and a test fails, it will be retried within the same run, up to that number of times
+    automation_max_retries: # optional, default is 
+    # Use a specific Rainforest branch for this run
+    branch: # optional, default is 
+    # Your Rainforest QA API token
+    token: 
+    # Do not wait for a run to complete before exiting
+    background: # optional, default is 
+    # Set to true to run parameter validations without starting a new Rainforest run
+    dry_run: # optional, default is 
+    # The cache key to use for saving/restoring a Rainforest run ID (used to rerun failed tests)
+    cache_key: # optional, default is ${{ github.job }}-${{ github.action }}
